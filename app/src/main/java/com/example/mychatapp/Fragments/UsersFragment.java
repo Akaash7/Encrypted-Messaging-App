@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.mychatapp.Adapter.UserAdapter;
-import com.example.mychatapp.Model.ChatList;
 import com.example.mychatapp.Model.User;
 import com.example.mychatapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,9 +33,6 @@ public class UsersFragment extends Fragment {
     private UserAdapter userAdapter;
     private List<User> mUsers;
     EditText search_users;
-   // FirebaseUser fuser;
-    //DatabaseReference reference;
-    //private List<ChatList> usersList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,27 +42,7 @@ public class UsersFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mUsers = new ArrayList<>();
         readUsers();
-        // ----------------------------------------------------------------------------
-       /* fuser = FirebaseAuth.getInstance().getCurrentUser();
-        usersList = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                usersList.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    ChatList chatlist = snapshot.getValue(ChatList.class);
-                    usersList.add(chatlist);
-                }
-                chatList();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-        //------------------------------------------------------------------------------
 
         search_users = view.findViewById(R.id.search_users);
         search_users.addTextChangedListener(new TextWatcher() {
@@ -86,9 +62,6 @@ public class UsersFragment extends Fragment {
 
             }
         });
-
-
-
         return view;
 
     }
@@ -148,7 +121,6 @@ public class UsersFragment extends Fragment {
                                 }
                             }
                         }
-                        // check if its true or false, before it was false
                         userAdapter = new UserAdapter(getContext(), mUsers, true, true);
                         recyclerView.setAdapter(userAdapter);
                     }
@@ -162,33 +134,5 @@ public class UsersFragment extends Fragment {
         });
 
     }
-    /*
-    private void chatList() {
-        mUsers = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUsers.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-                    for(ChatList chatlist: usersList){
-                        if (user.getId().equals(chatlist.getId())){
-                            mUsers.add(user);
-                        }
-                    }
-                }
-                userAdapter = new UserAdapter(getContext(),mUsers,true);
-                recyclerView.setAdapter(userAdapter);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }*/
-
 
 }

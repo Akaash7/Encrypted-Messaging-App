@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     TextView forgot_passsword;
     TextView encKey;
     DBHelper myDb;
-    final Globals Session_Key = Globals.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

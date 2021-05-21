@@ -26,21 +26,16 @@ public class StartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        // check if user is null
         Paper.init(this);
-        String current_session_key = Paper.book().read(Prevalent.pkey);
-        /*if (firebaseUser!=null  &&  current_session_key!=null ){
-            Intent intent = new Intent(StartActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }*/
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        // For animation
+
+        // animation
         relativeLayout = findViewById(R.id.start_act);
         animationDrawable = (AnimationDrawable)relativeLayout.getBackground();
         animationDrawable.setEnterFadeDuration(4000);

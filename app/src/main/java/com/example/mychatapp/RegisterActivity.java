@@ -43,8 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
     Button btn_register;
     FirebaseAuth auth;
     DatabaseReference reference;
-    private byte encKey[] = {9,115,51,86,105,4,-31,-13,-68,88,17,20,3,-105,119,-53};
-    DBHelper myDb;
     private RelativeLayout relativeLayout;
     private AnimationDrawable animationDrawable;
 

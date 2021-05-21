@@ -15,11 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.example.mychatapp.Fragments.ChatRequests;
 import com.example.mychatapp.Fragments.ChatsFragment;
 import com.example.mychatapp.Fragments.ProfileFragment;
 import com.example.mychatapp.Fragments.UsersFragment;
-import com.example.mychatapp.Model.Chat;
 import com.example.mychatapp.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,10 +51,7 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById((R.id.username));
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
-        //assert firebaseUser!=null;
-       // String userid  = firebaseUser.getUid();
-        //System.out.println(userid);
-        //if (userid!=null){
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,41 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        final TabLayout tabLayout= findViewById(R.id.tab_layout);
+       final TabLayout tabLayout= findViewById(R.id.tab_layout);
         final ViewPager viewPager   = findViewById(R.id.view_pager);
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-                int unread = 0;
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    Chat chat = snapshot.getValue(Chat.class);
-                    if (chat!=null){
-                        if (chat.getReceiver().equals(firebaseUser.getUid()) &&!chat.isIsseen()){
-                            unread++;
-                        }
-                    }
-
-                }
-                if(unread == 0){
-                    viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
-                }else{
-                    viewPagerAdapter.addFragment(new ChatsFragment(),"Chats("+unread+")");
-                }
-                //viewPagerAdapter.addFragment(new ChatRequests(),"Requests");
-                viewPagerAdapter.addFragment(new UsersFragment(),"Users");
-                viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
-                viewPager.setAdapter(viewPagerAdapter);
-                tabLayout.setupWithViewPager(viewPager);
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new ChatsFragment(),"Chats");
+        viewPagerAdapter.addFragment(new UsersFragment(),"Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,16 +92,9 @@ public class MainActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                /*
-                If the Activity being started is already running in the current task then instead of launching
-                the new instance of that Activity, all the other activities on top of it is destroyed (with call to onDestroy method)
-                and this intent is delivered to the resumed instance of the Activity
-                 */
                 startActivity(new Intent(getApplicationContext(),StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                //startActivity(new Intent(MainActivity.this, StartActivity.class));
                 finish();
                 return true;
-
         }
         return false;
     }
@@ -161,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
             titles.add(title);
         }
 
-        // ctrl+o
-
 
         @Nullable
         @Override
@@ -172,22 +131,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void status(String status){
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("status",status);
-        reference.updateChildren(hashMap);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        status("online");
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        status("offline");
     }
 }

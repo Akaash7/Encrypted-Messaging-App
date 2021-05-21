@@ -24,10 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mychatapp.Adapter.MessageAdapter;
 import com.example.mychatapp.Adapter.UserAdapter;
-import com.example.mychatapp.MessageActivity;
-import com.example.mychatapp.Model.Chat;
 import com.example.mychatapp.Model.User;
 import com.example.mychatapp.Prevalent.Prevalent;
 import com.example.mychatapp.R;
@@ -51,13 +48,9 @@ import com.google.firebase.storage.UploadTask;
 
 
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
-import javax.crypto.spec.SecretKeySpec;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
@@ -117,7 +110,6 @@ public class ProfileFragment extends Fragment {
                    }else{
                        image_profile.setImageResource(R.mipmap.ic_launcher);
                    }
-                   //Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
                }
 
            }
@@ -200,7 +192,7 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-       // By the help of android startActivityForResult() method, we can send information from one activity to another and vice-versa
+
         startActivityForResult(intent,IMAGE_REQUEST);
     }
     private String getFileExtension(Uri uri){
@@ -259,15 +251,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data!=null && data.getData()!=null){
-          /*  CropImage.activity(data.getData())
-                    .setCropShape(CropImageView.CropShape.OVAL)
-                    .setGuidelines(CropImageView.Guidelines.OFF)
-                    .setAutoZoomEnabled(false)
-                    .start(getContext(), ProfileFragment.this);
-            System.out.println("hello4");
-           // CropImage.activity(data.getData()).setAspectRatio(1, 1).start(getContext(),ProfileFragment.this);
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            imageUri = result.getUri();*/
+
             imageUri = data.getData();
             System.out.println("hello3");
             System.out.println(imageUri);
@@ -283,36 +267,3 @@ public class ProfileFragment extends Fragment {
 
     }
 }
-
-
-                        /*
-                        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        System.out.println(firebaseUser);
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        User user = snapshot.getValue(User.class);
-                                        System.out.println(user);
-                                        assert user != null;
-                                        assert firebaseUser != null;
-                                        System.out.println(firebaseUser.getUid());
-                                        if (!user.getId().equals(firebaseUser.getUid())) {
-                                            HashMap<String, Object> userMap = new HashMap<>();
-                                            userMap. put("image", myUrl);
-
-
-                                        }
-                                    }
-                                    // check if its true or false, before it was false
-                                    userAdapter = new UserAdapter(getContext(), mUsers, false,true);
-                                    recyclerView.setAdapter(userAdapter);
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });*/
