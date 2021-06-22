@@ -133,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(new Intent(MainActivity.this, StartActivity.class));
                 finish();
                 return true;
+            case R.id.createGroup:
+                startActivity(new Intent(MainActivity.this,CreateGroupActivity.class));
 
         }
         return false;

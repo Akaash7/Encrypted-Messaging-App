@@ -61,23 +61,4 @@
         android:textColor="#fff" />
 
 
-    <TextView
-        android:id="@+id/about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/register"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginRight="37dp"
-        android:layout_marginBottom="30dp"
-        android:text="AES-Encrypted SMS System, made by Yukti Khurana  "
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="#fff" />
-
-
-
-
 </RelativeLayout>

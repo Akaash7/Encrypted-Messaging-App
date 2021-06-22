@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPadding="3dp"
+    android:background="@color/cardview_light_background"
+    android:layout_marginTop="1dp"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/groupIconIv"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/group_make_foreground" />
+    <TextView
+        android:id="@+id/groupTitleIv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="@string/group_title"
+        android:layout_toEndOf="@id/groupIconIv"
+        android:textSize="18sp"
+        android:textColor="@color/colorGreen_900"
+        android:layout_toRightOf="@id/groupIconIv" />
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/groupTitleIv"
+        android:layout_toEndOf="@id/groupIconIv"
+        android:layout_toRightOf="@id/groupIconIv"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:text="@string/sender_name"
+        android:textColor="@color/colorGreen_900"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/messagetv"
+            android:layout_below="@id/groupTitleIv"
+            android:layout_toEndOf="@id/nameTv"
+            android:text="@string/the_message"
+            android:layout_marginStart="5dp"
+            android:singleLine="true"
+            android:layout_toRightOf="@id/nameTv"
+            android:layout_marginLeft="5dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timetv"
+            android:layout_below="@id/nameTv"
+            android:layout_alignParentEnd="true"
+            android:text="@string/_12_12pm"
+            android:layout_marginStart="5dp"
+            android:singleLine="true"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

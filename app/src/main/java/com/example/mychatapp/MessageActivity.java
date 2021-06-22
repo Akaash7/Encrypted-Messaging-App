@@ -113,8 +113,7 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        //Toast.makeText(MessageActivity.this,encryptionKey.toString(),Toast.LENGTH_SHORT).show();
-        //System.out.println(encryptionKey.toString());
+        
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -253,7 +252,7 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);
 
-        String encryptedMsg = AESEncryptionMethod(message);
+        String encryptedMsg = message;
 
         hashMap.put("message",encryptedMsg);
         hashMap.put("isseen",false);
@@ -277,11 +276,9 @@ public class MessageActivity extends AppCompatActivity {
 
     }
        private String AESEncryptionMethod(String msg){
-        // the message to be encrypted is converted to byte array
         byte[] stringByte = msg.getBytes();
         byte[] encryptedByte = new byte[stringByte.length];
         try {
-            // the secretKeySpec created above is used to encrypt the message
             cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec);
             encryptedByte = cipher.doFinal(stringByte);
         } catch (InvalidKeyException e) {
@@ -293,13 +290,11 @@ public class MessageActivity extends AppCompatActivity {
         }
         String returnString = null;
         try {
-            // ISO-8859-1 is being used here, but we can use any other
-            // standard also  depending on requirement
+
             returnString =  new String(encryptedByte,"ISO-8859-1");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        // return the encrypted- ciphertext formed after AES encryption
         return returnString;
         }
 
